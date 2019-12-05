@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import App from './App'
 
 test('renders app without crashing', () => {
@@ -11,12 +11,34 @@ test('contains the site title', () => {
   getByText(/baseball counter/i)
 })
 
-test('should display number of balls', () => {
-  const { getByText } = render(<App />)
-  getByText(/balls/i)
+test('should update display when ball button clicked', () => {
+  const { getByTestId } = render(<App />)
+  const ballButton = getByTestId('ballButton')
+  const ballDisplay = getByTestId('ballDisplay')
+  fireEvent.click(ballButton)
+  expect(ballDisplay).toHaveTextContent('1')
+  fireEvent.click(ballButton)
+  expect(ballDisplay).toHaveTextContent('2')
 })
 
-test('should contain a button for foul', () => {
-  const { getByText } = render(<App />)
-  getByText(/foul/i)
+test('should update display when strike button clicked', () => {
+  const { getByTestId } = render(<App />)
+  const strikeButton = getByTestId('strikeButton')
+  const strikeDisplay = getByTestId('strikeDisplay')
+  fireEvent.click(strikeButton)
+  expect(strikeDisplay).toHaveTextContent('1')
+  fireEvent.click(strikeButton)
+  expect(strikeDisplay).toHaveTextContent('2')
 })
+
+test('should render all displays correctly after a click', () => {
+  const { getByTestId } = render(<App />)
+  const ballButton = getByTestId('ballButton')
+  const ballDisplay = getByTestId('ballDisplay')
+  const strikeButton = getByTestId('strikeButton')
+  const strikeDisplay = getByTestId('strikeDisplay')
+  fireEvent.click(strikeButton)
+  expect(ballDisplay).toHaveTextContent('0')
+  fireEvent.click(ballButton)
+  expect(strikeDisplay).toHaveTextContent('1')
+});
