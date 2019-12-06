@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import Dashboard, { increaseBalls, increaseStrikes } from './Dashboard'
+import Dashboard, { increaseBalls, increaseStrikes, increaseFoulStrikes } from './Dashboard'
 
 test('should render a Dashboard component', () => {
   render(<Dashboard />)
@@ -40,6 +40,15 @@ test('increaseStrikes should increase passed in interger by 1', () => {
   expect(increaseStrikes(2)).toBe(3) 
 })
 
-test('if passed in integer is 3, increaseBalls should reset interger to 0', () => {
+test('if passed in integer is 3, increaseStrikes should reset interger to 0', () => {
   expect(increaseStrikes(3)).toBe(0) 
+})
+
+test('increaseFoulStrikes should increase passed in interger by 1', () => {
+  expect(increaseFoulStrikes(0)).toBe(1) 
+  expect(increaseFoulStrikes(1)).toBe(2) 
+})
+
+test('if passed in integer is 2, increaseFoulStrikes should do nothing', () => {
+  expect(increaseFoulStrikes(2)).toBe(2) 
 })
