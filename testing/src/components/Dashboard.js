@@ -23,6 +23,7 @@ const Dashboard = props => {
     })
   const handleHits = () =>
     props.setCounters({
+      ...props.counters,
       strikes: 0,
       balls: 0,
     })
@@ -36,7 +37,7 @@ const Dashboard = props => {
   const handleRuns = () =>
     props.setCounters({
       ...props.counters,
-      runs: ++props.counters.outs,
+      runs: ++props.counters.runs,
       strikes: 0,
       balls: 0,
     })
