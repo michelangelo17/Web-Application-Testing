@@ -3,11 +3,11 @@ import Display from './components/Display'
 import Dashboard from './components/Dashboard'
 
 function App() {
-  const [counters, setCounters] = useState({balls: 0, strikes: 0})
+  const [counters, setCounters] = useState({ balls: 0, strikes: 0, outs: 0, runs: 0, errors: 0 })
   return (
     <>
       <h1>Baseball Counter</h1>
-      <Display counters={counters}/>
+      <Display counters={counters} />
       <Dashboard setCounters={setCounters} counters={counters} />
     </>
   )

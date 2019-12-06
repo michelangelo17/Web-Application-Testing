@@ -1,7 +1,8 @@
 import React from 'react'
 
 export const increaseBalls = count => (count > 3 ? (count = 0) : ++count)
-export const increaseStrikes = count => (count > 2 ? (count = 0) : ++count)
+export const increaseStrikesandOuts = count =>
+  count > 2 ? (count = 0) : ++count
 export const increaseFoulStrikes = count => (count >= 2 ? count : ++count)
 
 const Dashboard = props => {
@@ -13,7 +14,7 @@ const Dashboard = props => {
   const handleStrikes = () =>
     props.setCounters({
       ...props.counters,
-      strikes: increaseStrikes(props.counters.strikes),
+      strikes: increaseStrikesandOuts(props.counters.strikes),
     })
   const handleFouls = () =>
     props.setCounters({
@@ -24,6 +25,25 @@ const Dashboard = props => {
     props.setCounters({
       strikes: 0,
       balls: 0,
+    })
+  const handleOuts = () =>
+    props.setCounters({
+      ...props.counters,
+      outs: increaseStrikesandOuts(props.counters.outs),
+      strikes: 0,
+      balls: 0,
+    })
+  const handleRuns = () =>
+    props.setCounters({
+      ...props.counters,
+      runs: ++props.counters.outs,
+      strikes: 0,
+      balls: 0,
+    })
+  const handleErrors = () =>
+    props.setCounters({
+      ...props.counters,
+      errors: ++props.counters.errors,
     })
   return (
     <>
@@ -36,8 +56,17 @@ const Dashboard = props => {
       <button data-testid='foulButton' onClick={handleFouls} type='button'>
         Foul
       </button>
-      <button data-testid='hitButton' onClick={handleHits} type='button'>
-        Hit
+      <button data-testid='hitWalkButton' onClick={handleHits} type='button'>
+        Hit/Walk
+      </button>
+      <button data-testid='outButton' onClick={handleOuts} type='button'>
+        Out
+      </button>
+      <button data-testid='runButton' onClick={handleRuns} type='button'>
+        Run
+      </button>
+      <button data-testid='errorButton' onClick={handleErrors} type='button'>
+        Error
       </button>
     </>
   )
